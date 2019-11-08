@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Instenai</title>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+    </head>
+
+    <body>
+
+            <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+            <script src="js/confetti.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+            <script>
+                //primeira requisição da página
+                requisicao();
+                preencherSlider();
+
+                //função de socket
+                $(document).ready(function(){
+                    const socket = io.connect("http://35.153.181.207:3005/"); // Conectando a API através do socket
+    
+                    // Sempre a api mandar um "newPost" é por que um post foi gravado no banco
+                    socket.on("newPost", data => {
+
+                        //aparece a modal
+                        document.getElementById('modal_img').style.display = 'block';
+
+                        //adiciona os arquivos para a modal
+                        $("#modal_img").append(`
+                        <div class="col-6 ml-auto mr-auto card card-instagram-modal">
+                            <div class="card-head header-card">
+                                <img src="http://35.153.181.207:3005/image/${data.foto}" class="img-thumbnail border-0">
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img class="icon-img" src="img/curtir.png">
+                                    </div>
+                                    <div class="col-2">
+                                        <img class="icon-img" src="img/comentar.png">
+                                    </div>
+                                    <div class="col-2 ">
+                                        <img class="icon-img" src="img/encaminhar.png">
+                                    </div>
+                                    <div class="col-6 img-salvar">
+                                        <img class="icon-img" src="img/salvar.png">
+                                    </div>
+                                </div>                            
+                            </div>
+                            <div class="card-footer">@${data.nome}</div>
+                        </div>
+                        `);
+
+                        //insere um novo na lista de fotos
+                        inserirNovo();
+
+                        confetti.start(3000);
+
+                        //timer para fechar a modal
+                        setTimeout(()=>{
+                            document.getElementById('modal_img').style.display = 'none';
+                            document.getElementById('modal_img').innerHTML = '';
+                        }, 3000);
+                    });
+                });
+                
+                //função que faz a primeira requisição da página
+                async function requisicao(){
+
+                    await $.ajax({
+                        method: "GET",
+                        url: "http://35.153.181.207:3005/all-posts"
+                    }).done((response)=>{
+                        response.forEach(item => {
+                            $("#imgs").append(`
+                            <div class="col-sm-5 ml-auto mr-auto card card-instagram">
+                                <div class="card-head header-card">
+                                    <img src="http://35.153.181.207:3005/image/${item.foto}" class="img-thumbnail border-0">
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <img class="icon-img" src="img/curtir.png">
+                                        </div>
+                                        <div class="col-2">
+                                            <img class="icon-img" src="img/comentar.png">
+                                        </div>
+                                        <div class="col-2 ">
+                                            <img class="icon-img" src="img/encaminhar.png">
+                                        </div>
+                                        <div class="col-6 img-salvar">
+                                            <img class="icon-img" src="img/salvar.png">
+                                        </div>
+                                    </div>                            
+                                </div>
+                                <div class="card-footer">@${item.nome}</div>
+                            </div>
+                            `)
+                            
+                        });
+                    });
+
+                }
+
+                //função de inserção
+                async function inserirNovo(){
+                    await $.ajax({
+                        method: "GET",
+                        url: "http://35.153.181.207:3005/all-posts"
+                    }).done((response)=>{
+                        document.getElementById("imgs").innerHTML =`
+                            <div class="col-sm-5 ml-auto mr-auto card card-instagram">
+                                <div class="card-head header-card">
+                                    <img src="http://35.153.181.207:3005/image/${response[0].foto}" class="img-thumbnail border-0">
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <img class="icon-img" src="img/curtir.png">
+                                        </div>
+                                        <div class="col-2">
+                                            <img class="icon-img" src="img/comentar.png">
+                                        </div>
+                                        <div class="col-2 ">
+                                            <img class="icon-img" src="img/encaminhar.png">
+                                        </div>
+                                        <div class="col-6 img-salvar">
+                                            <img class="icon-img" src="img/salvar.png">
+                                        </div>
+                                    </div>                            
+                                </div>
+                                <div class="card-footer">@${response[0].nome}</div>
+                            </div>
+                        ` + document.getElementById("imgs").innerHTML;
+                        atualizarSlide();
+                    });
+                   
+                }
+
+                //função para popular slider
+                async function preencherSlider(){
+                    await $.ajax({
+                        method: "GET",
+                        url: "http://35.153.181.207:3005/all-posts"
+                    }).done((response) => {
+                        for(let i = 0; i <= response.length; i ++){
+       
+                            if(i == 14){
+                                break;
+                            }
+
+                            $(".carousel-inner").append(`
+                            <div class="carousel-item">
+                                <img src="http://35.153.181.207:3005/image/${response[i].foto}" class="d-block w-100" alt="...">
+                            </div>
+                                
+                            `);
+                        };
+                    })
+                }
+
+
+                async function atualizarSlide(){
+                    
+                    
+                             
+                     await $.ajax({
+                        method: "GET",
+                        url: "http://35.153.181.207:3005/all-posts"
+                    }).done((response) => {
+                        document.getElementById("slider").innerHTML = "";
+
+                        for(let i = 0; i <= response.length; i ++){
+       
+                        if(i == 14){
+                            break;
+                        }
+
+                        $(".carousel-inner").append(`
+                            <div class="carousel-item">
+                                <img src="http://35.153.181.207:3005/image/${response[i].foto}" class="d-block w-100" alt="...">
+                            </div>
+                                
+                            `);
+   };
+                    })
+                }
+
+            </script>
+    
+        <!-- Modal de nova imagem-->
+        <div id="modal_img"> 
+            <!-- Aqui carrega a nova imagem inserida -->
+        </div>
+
+
+        <!-- Menu -->
+        <header>
+            <img src="img/senai-logo.png" class="senai img-fluid">
+        </header>
+
+        <!-- Arrumar o bug do position absolute do menu -->
+        <div id="menu-cover"></div>
+        <div id="container">
+            
+            <!-- Inicio Slider -->
+            <!-- <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner" id="slider">
+                  <div class="carousel-item active">
+                      <img src="img/senai-sp.jpg" class="d-block w-100" alt="...">
+                  </div>
+                </div>
+              </div> -->
+            <!-- Final do Slider -->
+
+            <!-- Começo dos cards de Exibição -->
+            <div id="container-img">
+                <div class="row" id="imgs">
+                    <!-- As imagens são carregadas aqui -->
+                </div> 
+            </div>   
+            <!-- Final dos cards de exibição -->
+
+        </div>
+    </body>
+
+</html>
