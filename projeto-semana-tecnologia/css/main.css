@@ -7,7 +7,7 @@
 header{
     background-color:#1a1a1a;
     width: 100%; 
-    height: 50px; 
+    height: 100px; 
     color: white;
     text-align: center;
     position: fixed;
@@ -30,17 +30,16 @@ header{
     margin-top: 5px;
     margin-left: auto;
     margin-right: auto;
-    /* background-color: aqua; */
-    background-image: url(../img/logo-senai.png);
+    background-color: aqua;
+    /* background-image: url(../img/logo-senai.png); */
     background-size: contain;
     background-repeat: no-repeat;
     box-sizing: border-box;
 } 
 
 .senai{
-    width: 40%;
-    height: 40px;
-    margin-top: 5px;
+    width: 450px;
+    height: 100px;
     margin-left: auto;
     margin-right: auto;
 }
