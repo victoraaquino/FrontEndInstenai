@@ -39,14 +39,14 @@ header{
 
 .senai{
     width: 450px;
-    height: 100px;
+    height: 95px;
     margin-left: auto;
     margin-right: auto;
 }
 
 #menu-cover{
     width: 100%;
-    height: 50px;
+    height: 100px;
 }
 
 #container{
@@ -54,6 +54,7 @@ header{
     height: auto;
     min-height: 100%;
     overflow: hidden;
+    padding-top: 0px;
     background-color:white;
     /* background-size: 100px 50px; */
     /* background-image: url(../img/senai-logo.png); */
@@ -72,7 +73,7 @@ header{
 
 .header-card{
     text-align: center; 
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .img-salvar{
@@ -89,7 +90,7 @@ header{
     height: auto;
     min-height: 1080px;
     overflow: hidden;
-    padding-top: 100px;
+    padding-top: 30px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -97,6 +98,29 @@ header{
 .icon-img{
     width: 20px !important; 
     height: 20px !important; 
+}
+
+.instenai{
+    color: red;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+
+.professor{
+    font-size: 15px;
+}
+
+.alunos{
+    font-size: 15px;
+}
+
+.card-nome{
+    height: 40px;
+    padding-bottom: 10px;
+    margin-right: 10px;
+    border: 3px solid #dbdbdb;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 

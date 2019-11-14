@@ -136,59 +136,59 @@
                                 <div class="card-footer">@${response[0].nome}</div>
                             </div>
                         ` + document.getElementById("imgs").innerHTML;
-                        atualizarSlide();
+                        // atualizarSlide();
                     });
                    
                 }
 
                 //função para popular slider
-                async function preencherSlider(){
-                    await $.ajax({
-                        method: "GET",
-                        url: "http://35.153.181.207:3005/all-posts"
-                    }).done((response) => {
-                        for(let i = 0; i <= response.length; i ++){
+//                 async function preencherSlider(){
+//                     await $.ajax({
+//                         method: "GET",
+//                         url: "http://35.153.181.207:3005/all-posts"
+//                     }).done((response) => {
+//                         for(let i = 0; i <= response.length; i ++){
        
-                            if(i == 14){
-                                break;
-                            }
+//                             if(i == 14){
+//                                 break;
+//                             }
 
-                            $(".carousel-inner").append(`
-                            <div class="carousel-item">
-                                <img src="http://35.153.181.207:3005/image/${response[i].foto}" class="d-block w-100" alt="...">
-                            </div>
+//                             $(".carousel-inner").append(`
+//                             <div class="carousel-item">
+//                                 <img src="http://35.153.181.207:3005/image/${response[i].foto}" class="d-block w-100" alt="...">
+//                             </div>
                                 
-                            `);
-                        };
-                    })
-                }
+//                             `);
+//                         };
+//                     })
+//                 }
 
 
-                async function atualizarSlide(){
+//                 async function atualizarSlide(){
                     
                     
                              
-                     await $.ajax({
-                        method: "GET",
-                        url: "http://35.153.181.207:3005/all-posts"
-                    }).done((response) => {
-                        document.getElementById("slider").innerHTML = "";
+//                      await $.ajax({
+//                         method: "GET",
+//                         url: "http://35.153.181.207:3005/all-posts"
+//                     }).done((response) => {
+//                         document.getElementById("slider").innerHTML = "";
 
-                        for(let i = 0; i <= response.length; i ++){
+//                         for(let i = 0; i <= response.length; i ++){
        
-                        if(i == 14){
-                            break;
-                        }
+//                         if(i == 14){
+//                             break;
+//                         }
 
-                        $(".carousel-inner").append(`
-                            <div class="carousel-item">
-                                <img src="http://35.153.181.207:3005/image/${response[i].foto}" class="d-block w-100" alt="...">
-                            </div>
+//                         $(".carousel-inner").append(`
+//                             <div class="carousel-item">
+//                                 <img src="http://35.153.181.207:3005/image/${response[i].foto}" class="d-block w-100" alt="...">
+//                             </div>
                                 
-                            `);
-   };
-                    })
-                }
+//                             `);
+//    };
+//                     })
+//                 }
 
             </script>
     
@@ -205,7 +205,45 @@
 
         <!-- Arrumar o bug do position absolute do menu -->
         <div id="menu-cover"></div>
-        <div id="container">
+
+        <div class="row mt-3 mb-4">
+            <div class="col-2.5 mr-auto ml-auto">
+               <h3 class="instenai">INSTENAI</h3>  
+            </div>
+        </div>
+
+        <div class="row mt-3 mb-2">
+            <div class="col-2 ml-auto mr-auto text-center">
+                <h5>Criado por:</h5>  
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-7.5 mr-auto ml-auto">
+                <div class="row">
+                    <div class="col-1.5 card-nome">Alisson Angelo</div>
+                    <div class="col-1.5 card-nome">David Silva</div>
+                    <div class="col-1.5 card-nome">Kailany Sousa</div>
+                    <div class="col-1.5 card-nome">Marlon Santos</div>           
+                    <div class="col-1.5 card-nome">Victor Augusto</div>
+                    <div class="col-1.5 card-nome">Vinicius Oliveira</div>
+                    <div class="col-1.5 card-nome">Washington Sampaio</div>
+                </div>                    
+            </div>            
+        </div>
+        
+        <div class="row mb-2">
+            <div class="col-3.5 mr-auto ml-auto">
+                <h5>Docente Responsável:</h5>  
+            </div>
+        </div>
+
+        <div class="row mb-0">
+            <div class="card col-1.5 mr-auto ml-auto card-nome mb-0">Rafael Leme</div>
+        </div>
+    
+
+        <div id="container" class="mt-0 p-0">
             
             <!-- Inicio Slider -->
             <!-- <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
